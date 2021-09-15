@@ -1,0 +1,39 @@
+{% extends 'app/dashboard/base/base.html' %}
+{% load static i18n %}
+{% block title %}{{ block.super }}: {% translate 'Edit: Announcement' %}{% endblock %}
+{% block content %}
+    <form method="post">
+        {% if form.errors %}
+            <div class="alert alert-outline-warning rounded-2xl">
+                <span class="badge badge-soft-warning">
+                    {% translate 'Error' %}
+                </span>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="content">
+                {% translate 'Content:' %}
+            </label>
+            <textarea name="content" rows="10" class="form-control rounded-2xl" aria-label="{% translate 'Content' %}"
+                      placeholder="{% translate 'Announcement content' %}" id="content" required
+            >{{ announcement.content }}</textarea>
+        </div>
+        <div class="my-3">
+            <label class="label" for="img">{% translate 'Image optional' %}</label>
+            <input type="file" name="image" id="img" class="form-control rounded-2xl" required>
+            <small>
+                {% translate 'Currently: ' %}
+                {% if announcement.image %}
+                    {{ announcement.image.name }}
+                {% else %}
+                    {% translate 'None' %}
+                {% endif %}
+            </small>
+        </div>
+        {% url 'app:delete_announcement' announcement.id as url %}
+        {% url 'app:dashboard_announcement_list' as uri %}
+        {% include 'app/includes/utilities/save_submit.html' with delete_url=url cancel_url=uri %}
+    </form>
+{% endblock %}

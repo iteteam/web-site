@@ -1,0 +1,109 @@
+{% load static i18n %}
+<header class="mb-3">
+    <nav class="navbar {% if user.is_authenticated %}navbar-expand-lg{% endif %} navbar-dark bg-gradient-primary"
+         id="navbar">
+        <a class="navbar-brand" href="{% url 'app:index' %}">{% translate 'ITE Team' %}</a>
+        {% if user.is_authenticated %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"
+                    aria-controls="navbar_example_1" aria-expanded="false"
+                    aria-label="{% translate 'Toggle navigation' %}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        {% endif %}
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav mr-auto">
+                {% url 'app:index' as index %}
+                <li class="nav-item {% if index == request.path %} active {% endif %}">
+                    <a class="nav-link rounded-2xl px-3 my-1" href="{{ index }}">
+                        <i class="bi bi-house-fill"></i>
+                        {% translate 'Home' %}
+                    </a>
+                </li>
+                {% url 'app:blog' as blog %}
+                <li class="nav-item {% if blog == request.path %} active {% endif %}">
+                    <a class="nav-link rounded-2xl px-3 my-1" href="{{ blog }}">
+                        <i class="bi bi-card-text"></i>
+                        {% translate 'Blog' %}
+                    </a>
+                </li>
+                {% url 'app:forums' as forums %}
+                <li class="nav-item {% if forums == request.path %} active {% endif %}">
+                    <a class="nav-link rounded-2xl px-3 my-1" href="{{ forums }}">
+                        <i class="bi bi-view-list"></i>
+                        {% translate 'Forums' %}
+                    </a>
+                </li>
+                {% url 'app:catalog' as catalog %}
+                <li class="nav-item {% if catalog == request.path %} active {% endif %}">
+                    <a class="nav-link rounded-2xl px-3 my-1" href="{{ catalog }}">
+                        <i class="bi bi-ui-checks-grid"></i>
+                        {% translate 'Catalog' %}
+                    </a>
+                </li>
+                {% if 'app.add_course' in request.user.get_all_permissions %}
+                    <li class="nav-item">
+                        <a class="nav-link rounded-2xl px-3 my-1" href="{% url 'app:dashboard' %}">
+                            <i class="bi bi-shield-check"></i>
+                            {% translate 'Dashboard' %}
+                        </a>
+                    </li>
+                {% endif %}
+                {% url 'app:announcements' as announcement %}
+                <li class="nav-item {% if announcement == request.path %} active {% endif %}">
+                    <a class="nav-link rounded-2xl px-3 my-1" href="{{ announcement }}">
+                        <i class="bi bi-card-list"></i>
+                        {% translate 'Announcements' %}
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link rounded-2xl  px-3 my-1 nav-link-icon" href="#" id="navbar_1_dropdown_3"
+                       role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="bi bi-person-fill"></i>
+                        <span class="d-lg-none">
+                            {% translate 'Account' %}
+                        </span>
+                    </a>
+                    <div class="dropdown-menu rounded-2xl dropdown-menu-right">
+                        <h6 class="dropdown-header text-muted">
+                            {% translate 'Welcome' %} {{ request.user.get_short_name }}
+                        </h6>
+                        <a class="dropdown-item rounded-2xl" href="{% url 'app:user_detail' user.id %}">
+                            <i class="bi bi-person-badge text-primary"></i>
+                            {% translate 'Account' %}
+                        </a>
+                        <div class="dropdown-divider" role="presentation"></div>
+                        {% if user.is_authenticated %}
+                            <a class="dropdown-item rounded-2xl" href="{% url 'logout' %}">
+                                <i class="bi bi-box-arrow-right text-primary"></i>
+                                {% translate 'Sign out' %}
+                            </a>
+                        {% else %}
+                            <a class="dropdown-item rounded-2xl" href="{% url 'login' %}">
+                                <i class="bi bi-box-arrow-left text-primary"></i>
+                                {% translate 'Log in' %}
+                            </a>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="d-flex justify-content-around">
+                        <a href="https://www.facebook.com/gruops/" class="nav-link rounded-2xl px-3 my-1">
+                            <i class="bi bi-facebook"></i>
+                            <small class="d-lg-none">{% translate 'Facebook' %}</small>
+                        </a>
+                        <a href="https://t.me/joinchat/Sx7O6HtIJMQXptBf" class="nav-link rounded-2xl px-3 my-1">
+                            <i class="bi bi-telegram"></i>
+                            <small class="d-lg-none">{% translate 'Telegram' %}</small>
+                        </a>
+                        <a href="mailto:iteteam84@gmail.com" class="nav-link rounded-2xl px-3 my-1">
+                            <i class="bi bi-chat-left-text-fill"></i>
+                            <small class="d-lg-none">{% translate 'Feedback' %}</small>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

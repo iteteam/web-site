@@ -1,0 +1,24 @@
+{% extends 'app/base/main.html' %}
+{% load i18n static %}
+{% block title %}{% translate 'Courses' %}{% endblock %}
+{% block content %}
+    <h3>
+        {% translate 'Courses' %}
+    </h3>
+    {% if course_list %}
+        <div class="row">
+            {% for course in course_list %}
+                <div class="col-12 col-md-6">
+                    {% include 'app/includes/components/course.html' %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="p-3 border rounded-2xl text-center">
+            <i class="bi bi-card-text" style="font-size: 5rem"></i>
+            <p>
+                {% translate 'Coming soon wait for us.' %}
+            </p>
+        </div>
+    {% endif %}
+{% endblock %}

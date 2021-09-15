@@ -1,0 +1,119 @@
+{% extends 'app/views/detail/detail_view.html' %}
+{% load static i18n %}
+{% block title %}{% translate 'Question details' %}{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            {% include 'app/includes/components/question.html' %}
+        </div>
+        <div class="col-12 col-lg-6">
+            {# Answers #}
+            <div class="border p-3 rounded-2xl">
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <h3 class="m-0 p-0 text-muted text-center text-lg-left">
+                            {% translate 'Answers' %}
+                        </h3>
+                    </div>
+                    <div class="col-12 col-lg-6 pt-3 pt-lg-0">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <button type="button" class="btn btn-sm rounded-2xl btn-soft-warning mr-lg-3"
+                                    data-bs-toggle="modal" data-bs-target="#answer_adding_modal">
+                                <i class="bi bi-plus"></i>
+                                {% translate 'Answer' %}
+                            </button>
+                            <button type="button" class="btn btn-sm rounded-2xl btn-soft-danger"
+                                    data-bs-toggle="modal" data-bs-target="#answer_listing_modal">
+                                <i class="bi bi-ui-checks-grid"></i>
+                                {% translate 'Answers' %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="my-3">
+                {% if question.answer_set.all %}
+                    {% include 'app/includes/components/question_answer.html' with answer=question.answer_set.last user=user %}
+                {% else %}
+                    <div class="border rounded-2xl p-3 my-3 text-center">
+                        <i class="bi bi-chat-left-text" style="font-size: 5rem"></i>
+                        <p>
+                            {% translate 'Not answerd !' %}
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+            {# End answers #}
+        </div>
+    </div>
+    {# Comment Adding Modal #}
+    <div class="modal fade" id="answer_adding_modal" tabindex="-1"
+         aria-labelledby="answer_adding_modal_title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content rounded-2xl">
+                <div class="modal-header p-3">
+                    <h5 class="modal-title" id="answer_adding_modal_title">
+                        {% translate 'Add Answer' %}
+                    </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-square-fill text-danger"></i>
+                    </button>
+                </div>
+                <div class="modal-body p-3">
+                    <form method="post" action="{% url 'app:create_answer' question.id %}" id="add_answer">
+                        {% csrf_token %}
+                        <textarea name="content" rows="10" class="form-control rounded-2xl" required
+                                  aria-label="{% translate 'Content' %}" placeholder="{% translate 'Answer content' %}"
+                        ></textarea>
+                    </form>
+                </div>
+                <div class="modal-footer p-3">
+                    <button type="button" class="btn btn-sm rounded-2xl btn-soft-danger" data-bs-dismiss="modal">
+                        <i class="bi bi-x"></i> {% translate 'Cancel' %}
+                    </button>
+                    <button type="submit" form="add_answer" class="btn btn-sm rounded-2xl btn-soft-success">
+                        <i class="bi bi-plus"></i> {% translate 'Add' %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# End modal #}
+    {# Quiz Listing Modal #}
+    <div class="modal fade" id="answer_listing_modal" tabindex="-1"
+         aria-labelledby="answer_listing_modal_title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content rounded-2xl">
+                <div class="modal-header p-3">
+                    <h5 class="modal-title" id="answer_listing_modal_title">
+                        {% translate 'Answer List' %}
+                    </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-square-fill text-danger"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-3 pt-3 pb-0">
+                    {% if question.answer_set.all %}
+                        {% for answer in question.answer_set.all %}
+                            {% include 'app/includes/components/question_answer.html' %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="border rounded-2xl p-3 text-center mb-3">
+                            <i class="bi bi-ui-radios-grid" style="font-size: 5rem"></i>
+                            <p>
+                                {% translate 'Not answerd !' %}
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="modal-footer p-3">
+                    <button type="button" class="btn btn-sm rounded-2xl btn-soft-danger" data-bs-dismiss="modal">
+                        <i class="bi bi-x"></i>
+                        {% translate 'Close' %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# End modal #}
+{% endblock %}

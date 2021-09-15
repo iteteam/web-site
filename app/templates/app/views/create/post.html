@@ -1,0 +1,27 @@
+{% extends 'app/base/main.html' %}
+{% load static i18n %}
+{% block title %}{% translate 'Add post' %}{% endblock %}
+{% block content %}
+    <div class="border p-3 rounded-2xl mb-3">
+        <h3 class="heading lead m-0 text-center text-lg-left">
+            {% translate 'Add post' %}
+        </h3>
+    </div>
+    <form method="post">
+        {% if form.errors %}
+            <div class="alert alert-outline-warning rounded-2xl mb-3">
+                <span class="badge badge-warning">{% translate 'Error' %}</span>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+        {% csrf_token %}
+        <div class="form-group">
+            <textarea name="content" class="form-control rounded-2xl" rows="10" required
+                      placeholder="{% translate 'What do you think?' %}"
+                      aria-label="{% translate 'Post content' %}"
+            ></textarea>
+        </div>
+        {% url 'app:blog' as url %}
+        {% include 'app/includes/utilities/submit.html' with cancel_url=url %}
+    </form>
+{% endblock %}

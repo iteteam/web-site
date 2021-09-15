@@ -1,0 +1,16 @@
+{% load i18n %}
+<div class="mb-3 border d-flex align-items-center p-3 rounded-2xl">
+    <div class="container-fluid m-0 p-0">
+        <span class="avatar avatar-sm bg-gradient-purple mr-2">
+            {{ user.first_name|slice:'0:1' }}{{ user.last_name|slice:'0:1' }}
+        </span>
+        <span>
+            {% translate 'Welcome ' %}
+            {{ user.get_short_name }}
+        </span>
+    </div>
+    <a href="{{ add_url }}" class="btn btn-sm rounded-2xl btn-soft-success">
+        <i class="bi bi-plus mr-0"></i>
+        {% translate 'Add' %}
+    </a>
+</div>

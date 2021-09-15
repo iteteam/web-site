@@ -1,0 +1,54 @@
+{% load i18n %}
+<aside class="d-flex flex-column rounded-2xl border p-lg-3">
+    <div class="heading d-none d-lg-block">
+        <h1>
+            {% blocktranslate %}
+                <span class="text-indigo">D</span>ash<span class="text-indigo">B</span>oard
+            {% endblocktranslate %}
+        </h1>
+    </div>
+    <div class="list-group list-group-flush text-center flex-row flex-lg-column w-100 py-lg-3 px-3">
+        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-center
+         justify-content-lg-start rounded-2xl border-0" href="{% url 'app:dashboard' %}">
+            <i class="bi bi-house-fill"></i>
+            <span class="d-none d-lg-inline ml-3">
+                {% translate 'Home' %}
+            </span>
+        </a>
+        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-center
+         justify-content-lg-start rounded-2xl border-0" href="{% url 'app:dashboard_account' request.user.id %}">
+            <i class="bi bi-layout-wtf"></i>
+            <span class="d-none d-lg-inline ml-3">
+                {% translate 'Account' %}
+            </span>
+        </a>
+        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-center
+         justify-content-lg-start rounded-2xl border-0" href="{% url 'app:dashboard_user_list' %}">
+            <i class="bi bi-person-lines-fill"></i>
+            <span class="d-none d-lg-inline ml-3">
+                {% translate 'Users' %}
+            </span>
+        </a>
+        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-center
+         justify-content-lg-start rounded-2xl border-0" href="#">
+            <i class="bi bi-bar-chart-line-fill"></i>
+            <span class="d-none d-lg-inline ml-3">
+                {% translate 'Statistics' %}
+            </span>
+        </a>
+        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-center
+         justify-content-lg-start rounded-2xl border-0" href="#">
+            <i class="bi bi-heart-fill"></i>
+            <span class="d-none d-lg-inline ml-3">
+                {% translate 'Users' %}
+            </span>
+        </a>
+        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-center
+         justify-content-lg-start rounded-2xl border-0" href="{% url 'logout' %}">
+            <i class="bi bi-box-arrow-right"></i>
+            <span class="d-none d-lg-inline ml-3">
+                {% translate 'Log out' %}
+            </span>
+        </a>
+    </div>
+</aside>

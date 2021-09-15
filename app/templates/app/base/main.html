@@ -1,0 +1,24 @@
+{% extends 'app/base/base.html' %}
+{% load i18n static %}
+{# Header #}
+{% block header %}
+    {% include 'app/includes/components/navbar.html' %}
+{% endblock %}
+{# End header #}
+{% block main %}
+    {# Splash screen #}
+    {% include 'app/includes/components/splash_screen.html' %}
+    {# End screen #}
+    {# Content #}
+    <main class="container-fluid d-none" id="x">
+        <div class="row mb-0">
+            <div class="col-12 col-lg-3">
+                {% include 'app/includes/components/aside.html' %}
+            </div>
+            <div class="col-12 col-lg-9 py-3 py-lg-0">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </main>
+    {# End content #}
+{% endblock %}

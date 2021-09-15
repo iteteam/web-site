@@ -1,0 +1,27 @@
+{% extends 'app/views/edit/edit_view.html' %}
+{% load i18n %}
+{% block title %}{% translate 'Edit post' %}{% endblock %}
+{% block editable %}
+    <div class="border p-3 rounded-2xl mb-3">
+        <h3 class="heading lead mb-0 text-center text-lg-left">
+            {% translate 'Edit Post' %}
+        </h3>
+    </div>
+    <form method="post">
+        {% if form.errors %}
+            <div class="alert alert-outline-warning rounded-2xl">
+                <div class="alert-content">
+                    {{ form.errors }}
+                </div>
+            </div>
+        {% endif %}
+        {% csrf_token %}
+        <div class="form-group">
+            <textarea name="content" rows="10" id="text" class="form-control rounded-2xl {% if form.content.error %}is-invalid{% endif %}"
+                      aria-label="{% translate 'Post content' %}" required placeholder="{% translate 'What do you think?' %}"
+            >{{ post.content }}</textarea>
+        </div>
+        {% url 'app:delete_post' post.id as delete_url %}
+        {% include 'app/includes/utilities/save_submit.html' with delete_url=delete_url %}
+    </form>
+{% endblock %}

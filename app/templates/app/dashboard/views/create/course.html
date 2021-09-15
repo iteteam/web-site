@@ -1,0 +1,36 @@
+{% extends 'app/dashboard/base/base.html' %}
+{% load i18n static %}
+{% block title %}{{ block.super }}: {% translate 'Add a course' %}{% endblock %}
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% if form.errors %}
+            <div class="alert alert-outline-warning rounded-2xl ">
+                <div class="alert-content">
+                    {{ form.errors }}
+                </div>
+            </div>
+        {% endif %}
+        {% csrf_token %}
+        <div class="mb-3 form-group">
+            <label for="title">{% translate 'Course title:' %}</label>
+            <input type="text" name="title" placeholder="{% translate 'Title' %}" id="title" required
+                   class="form-control rounded-2xl">
+        </div>
+        <div class="mb-3 form-group">
+            <label for="about">{% translate 'About the course:' %}</label>
+            <input type="text" name="about" placeholder="{% translate 'About' %}" id="about" required
+                   class="form-control rounded-2xl">
+        </div>
+        <div class="mb-3 form-group">
+            <label for="title">{% translate 'Course description:' %}</label>
+            <textarea name="description" placeholder="{% translate 'Description' %}" rows="10" required
+                      id="title" class="form-control rounded-2xl"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="image">{% translate 'Course image' %}</label>
+            <input type="file" name="image" id="image" class="form-control rounded-2xl" required>
+        </div>
+        {% url 'app:dashboard_course_list' as url %}
+        {% include 'app/includes/utilities/submit.html' with cancel_url=url %}
+    </form>
+{% endblock %}

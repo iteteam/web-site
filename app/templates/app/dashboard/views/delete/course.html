@@ -1,0 +1,21 @@
+{% extends 'app/dashboard/base/base.html' %}
+{% load static i18n %}
+
+{% block title %}{{ block.super }}: {% translate 'Course deletion confirm' %}{% endblock %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            {% translate 'Are you sure you want to delete ' %}
+            {{ course }}?
+        </p>
+        <div class="alert alert-outline-primary rounded-2xl">
+            <div class="alert-heading">
+                {% translate 'Note:' %}
+            </div>
+            {% translate 'All lectures and quizzes related with this course will be deleted if you delete this course.' %}
+        </div>
+        {% url 'app:dashboard_course_list' as url %}
+        {% include 'app/includes/utilities/submit.html' with cancel_url=url %}
+    </form>
+{% endblock %}

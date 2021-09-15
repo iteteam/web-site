@@ -1,0 +1,41 @@
+{% extends 'app/base/base.html' %}
+{% load i18n static %}
+
+{% block title %}{% translate '404 Page not found' %}{% endblock %}
+
+{% block head %}
+    <style>
+        .fs-10 {
+            font-size: 7rem;
+        }
+
+        @media screen and (min-width: 425px) {
+            .fs-10 {
+                font-size: 10rem !important;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <main class="main">
+        <section class="py-xl">
+            <div class="container d-flex align-items-center no-padding">
+                <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 text-center border rounded-2xl px-3 py-lg bg-cover bg-size--contain z-depth-2-top"
+                             style="background: url('{% static 'app/img/pattern-1.svg' %}')">
+                            <div class="mb-3 fs-10">
+                                4<i class="bi bi-emoji-frown mx-0"></i>4
+                                <h1>{% translate 'Not found' %}</h1>
+                            </div>
+                            <p>
+                                {% translate 'We’re sorry, but the requested page could not be found.' %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

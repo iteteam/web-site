@@ -1,0 +1,39 @@
+{% extends 'app/dashboard/base/base.html' %}
+{% load static i18n %}
+
+{% block title %}{{ block.super }}: {% translate 'Edit lecture' %}{% endblock %}
+
+{% block content %}
+    <h3>
+        {% translate 'Edit lecture' %}: {{ lecture.title }}
+    </h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">
+                {% translate 'Title:' %}
+            </label>
+            <input type="text" name="title" id="title" value="{{ lecture.title }}" class="form-control rounded-2xl"
+                   placeholder="{% translate 'Lecture title' %}" required>
+        </div>
+        <div class="form-group">
+            <label for="about">
+                {% translate 'About:' %}
+            </label>
+            <input type="text" name="about" id="about" value="{{ lecture.about }}" class="form-control rounded-2xl"
+            placeholder="{% translate 'Brief description of the lecture' %}" required>
+        </div>
+        <div class="form-group">
+            <label for="file">
+                {% translate 'Lecture file:' %}
+            </label>
+            <input type="file" name="file" id="file" value="{{ lecture.file }}" class="form-control rounded-2xl">
+            <small class="text-muted">
+                {% translate 'Currently: ' %}{{ lecture.file }}
+            </small>
+        </div>
+        {% url 'app:delete_lecture' lecture.id as url %}
+        {% url 'app:edit_course' lecture.course_id as uri %}
+        {% include 'app/includes/utilities/save_submit.html' with delete_url=url cancel_url=uri %}
+    </form>
+{% endblock %}

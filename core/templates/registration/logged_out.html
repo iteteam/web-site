@@ -1,0 +1,44 @@
+{% extends 'app/base/base.html' %}
+{% load i18n static %}
+{% block title %}{% translate 'Logged out' %}{% endblock %}
+{% block main %}
+    <main class="main">
+        <section class="py-xl">
+            <div class="container d-flex align-items-center no-padding">
+                <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="card rounded-2xl bg-cover bg-size--contain z-depth-2-top"
+                                 style="background: url('{% static 'app/img/pattern-1.svg' %}')">
+                                <div class="card-body py-lg">
+                                    <h1 class="mb-0 text-center">
+                                        {% translate 'ITE Team' %}
+                                    </h1>
+                                    <div class="text-center py-lg text-muted">
+                                        <h2 class="text-muted">
+                                            {% translate 'Log out successful!' %}
+                                        </h2>
+                                        <p class="card-text p-3">
+                                            {% translate 'Thanks for spending some time in the site.' %}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-around">
+                                        <a href="{% url 'login' %}"
+                                           class="btn btn-sm btn-soft-success rounded-2xl">
+                                            {% translate 'Login again' %}
+                                        </a>
+                                        <a href="https://www.google.com/"
+                                           class="btn btn-sm btn-soft-danger rounded-2xl">
+                                            {% translate 'Leave the site' %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock %}

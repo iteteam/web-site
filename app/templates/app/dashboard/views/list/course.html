@@ -1,0 +1,19 @@
+{% extends 'app/dashboard/base/base.html' %}
+{% load static i18n %}
+
+{% block title %}{{ block.super }}: {% translate 'Courses' %}{% endblock %}
+
+{% block content %}
+    {% url 'app:create_course' as add_link %}
+    {% include 'app/includes/utilities/list_header.html' with add_url=add_link %}
+    {% if  course_list %}
+        {% for course in course_list %}
+            {% include 'app/dashboard/includes/componenets/course.html' %}
+        {% endfor %}
+    {% else %}
+        <p class="p-3 border rounded-2xl text-center">
+            <i class="bi bi-ui-checks-grid d-block" style="font-size: 5rem"></i>
+            {% translate 'No course yet' %}
+        </p>
+    {% endif %}
+{% endblock %}

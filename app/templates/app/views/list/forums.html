@@ -1,0 +1,23 @@
+{% extends 'app/base/main.html' %}
+{% load static i18n %}
+{% block title %}{% translate 'Questions' %}{% endblock %}
+{% block content %}
+    {% url 'app:create_question' as add_url %}
+    {% include 'app/includes/utilities/list_header.html' with add_url=add_url user=user %}
+    {% if question_list %}
+        <div class="row">
+            {% for question in question_list %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    {% include 'app/includes/components/question.html' %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="border rounded-2xl p-3 text-center">
+            <i class="bi bi-patch-question-fill" style="font-size: 5rem"></i>
+            <p>
+                {% translate 'Be the first who ask!' %}
+            </p>
+        </div>
+    {% endif %}
+{% endblock %}

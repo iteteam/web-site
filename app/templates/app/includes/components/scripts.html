@@ -1,0 +1,24 @@
+{% load static %}
+<script src="{% static 'app/js/jquery/jquery.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'app/js/popper/popper.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'app/js/bootstrap/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'app/js/theme.js' %}" type="text/javascript"></script>
+<script src="{% static 'app/js/main.js' %}" type="text/javascript"></script>
+{% if request.user.theme == 'light' %}
+    <script src="{% static 'app/js/themes/light.js' %}" type="text/javascript"></script>
+{% elif request.user.theme == 'dark' %}
+    <script src="{% static 'app/js/themes/dark.js' %}" type="text/javascript"></script>
+{% elif request.user.theme == 'auto' %}
+    <script src="{% static 'app/js/themes/auto.js' %}" type="text/javascript"></script>
+{% elif request.user.theme == 'sunrise' %}
+    <script src="{% static 'app/js/themes/sunrise.js' %}" type="text/javascript"></script>
+{% elif request.user.theme == 'sunset' %}
+    <script src="{% static 'app/js/themes/sunset.js' %}" type="text/javascript"></script>
+{% elif request.user.theme == 'green' %}
+    <script src="{% static 'app/js/themes/green.js' %}" type="text/javascript"></script>
+{% elif request.user.theme == 'red' %}
+    <script src="{% static 'app/js/themes/rose.js' %}" type="text/javascript"></script>
+{% else %}
+    <script src="{% static 'app/js/themes/standard.js' %}" type="text/javascript"></script>
+{% endif %}
+{# End scripts #}

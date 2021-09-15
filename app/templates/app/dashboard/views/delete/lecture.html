@@ -1,0 +1,16 @@
+{% extends 'app/dashboard/base/base.html' %}
+{% load static i18n %}
+
+{% block title %}{{ block.super }}: {% translate 'Lecture deletion confirm' %}{% endblock %}
+
+{% block content %}
+    <h3>{% translate 'Lecture delete confirmation' %}</h3>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            {% translate 'Are you sure you want to delete this lecture?' %}
+        </p>
+        {% url 'app:edit_course' lecture.course_id as url %}
+        {% include 'app/includes/utilities/submit.html' with cancel_url=url %}
+    </form>
+{% endblock %}

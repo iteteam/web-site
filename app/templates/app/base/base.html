@@ -1,0 +1,36 @@
+<!doctype html>
+{% load i18n static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800|Roboto:400,500,700" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+    <link type="text/css" href="{% static 'app/css/theme.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'app/css/override.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'app/css/font/bootstrap-icons.css' %}" rel="stylesheet">
+    {# Head #}
+    {% block head %}{% endblock %}
+    {# End head #}
+</head>
+<body id="main" class="" {% block event %}onload="hideSplashScreen('splash', 'x')"{% endblock %}>
+
+{# Header #}
+{% block header %}{% endblock %}
+{# End header #}
+
+{# Main #}
+{% block main %}{% endblock %}
+{# End main #}
+
+{# Footer #}
+{% block footer %}{% endblock %}
+{# End footer #}
+
+{# Scripts #}
+{% block script %}
+    {% include 'app/includes/components/scripts.html' %}
+{% endblock %}
+{# End scripts #}
+</body>
+</html>

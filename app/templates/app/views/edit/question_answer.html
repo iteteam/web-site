@@ -1,0 +1,28 @@
+{% extends 'app/base/main.html' %}
+{% load i18n %}
+
+{% block title %}{% translate 'Edit Answer' %}{% endblock %}
+
+{% block content %}
+    <div class="border p-3 rounded-2xl mb-3">
+        <h3 class="heading lead mb-0 text-center text-lg-left">
+            {% translate 'Edit Answer' %}
+        </h3>
+    </div>
+    <form method="post">
+        {% if form.errors %}
+            <div class="alert alert-outline-warning rounded-2xl ">
+                <div class="alert-content">{{ form.errors }}</div>
+            </div>
+        {% endif %}
+        {% csrf_token %}
+        <div class="form-group">
+            <textarea name="content" rows="10" aria-label="{% translate 'Content' %}" class="form-control rounded-2xl"
+                      placeholder="{% translate 'Content' %}"
+            >{{ answer.content }}</textarea>
+        </div>
+        {% url 'app:delete_answer' answer.id as url %}
+        {% url 'app:generic_question_detail' answer.question_id as uri %}
+        {% include 'app/includes/utilities/save_submit.html' with delete_url=url cancel_url=uri %}
+    </form>
+{% endblock %}

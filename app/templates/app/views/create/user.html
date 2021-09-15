@@ -1,0 +1,164 @@
+{% extends 'app/base/base.html' %}
+{% load i18n static %}
+{% block title %}{% translate 'Sign up' %}{% endblock %}
+{% block main %}
+    <main class="main">
+        <section class="py-xl bg-cover bg-size--cover">
+            <div class="container d-flex align-items-center no-padding">
+                <div class="col">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="card rounded-xl text-white bg-cover bg-size--contain z-depth-2-top"
+                                 style="background: url('{% static 'app/img/pattern-1.svg' %}')">
+                                <div class="card-body">
+                                    <h1 class="mb-0 text-center">{% translate 'ITE Team' %}</h1>
+                                    <h4 class="heading h3 pt-3 pb-5">{% translate 'Welcome to sign up' %}</h4>
+                                    <form method="post" class="">
+                                        {% if form.errors %}
+                                            <div class="alert alert-outline-warning rounded-2xl  fade show " role="alert">
+                                                <span class="badge badge-warning">{% translate 'Error' %}</span>
+                                                {% if from.errors|length > 1 %}
+                                                    {% translate 'Please correct the errors below.' %}
+                                                {% else %}
+                                                    {% translate 'Please correct the errors below.' %}
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                        {% csrf_token %}
+                                        <div class=" w-100 mb-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-person"></i>
+                                                    </span>
+                                                </div>
+                                                <input aria-label="{% translate 'User name' %}" type="text"
+                                                       name="username" required
+                                                       class="form-control {% if form.username.errors %}is-invalid{% endif %}"
+                                                       id="user" placeholder="{% translate 'User name' %}">
+                                            </div>
+                                            {% if form.username.errors %}
+                                                <div class="alert alert-outline-warning rounded-2xl  my-3">
+                                                    <span class="badge badge-warning">{% translate 'Error' %}</span>
+                                                    {{ form.username.errors }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class=" w-100 mb-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-envelope"></i>
+                                                    </span>
+                                                </div>
+                                                <input aria-label="{% translate 'Email address' %}" type="email"
+                                                       name="email" required
+                                                       class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                                                       id="email" placeholder="{% translate 'Email address' %}">
+                                            </div>
+                                            {% if form.email.errors %}
+                                                <div class="alert alert-outline-warning rounded-2xl  my-3">
+                                                    <span class="badge badge-warning">{% translate 'Error' %}</span>
+                                                    {{ form.email.errors }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class=" w-100 mb-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-star"></i>
+                                                    </span>
+                                                </div>
+                                                <input aria-label="{% translate 'First name' %}" type="text"
+                                                       name="first_name" required
+                                                       class="form-control {% if form.first_name.errors %} is-invalid  {% endif %}"
+                                                       id="first" placeholder="{% translate 'First name' %}">
+                                            </div>
+                                            {% if form.first_name.errors %}
+                                                <div class="alert alert-outline-warning rounded-2xl  my-3">
+                                                    <span class="badge badge-warning">{% translate 'Error' %}</span>
+                                                    {{ form.first_name.errors }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class=" w-100 mb-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="bi bi-stars"></i>
+                                                    </span>
+                                                </div>
+                                                <input aria-label="{% translate 'Last name' %}" type="text"
+                                                       name="last_name" required
+                                                       class="form-control {% if form.last_name.errors %} is-invalid  {% endif %}"
+                                                       id="last" placeholder="{% translate 'Last name' %}">
+                                            </div>
+                                            {% if form.last_name.errors %}
+                                                <div class="alert alert-outline-warning rounded-2xl  my-3">
+                                                    <span class="badge badge-warning">{% translate 'Error' %}</span>
+                                                    {{ form.last_name.errors }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class=" w-100 mb-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-key"></i>
+                                            </span>
+                                                </div>
+                                                <input aria-label="{% translate 'Password' %}" type="password"
+                                                       name="password1" required
+                                                       class="form-control {% if form.password1.errors %} is-invalid  {% endif %}"
+                                                       id="pass1" placeholder="{% translate 'Password' %}">
+                                            </div>
+                                            {% if form.password1.errors %}
+                                                <div class="alert alert-outline-warning rounded-2xl  my-3">
+                                                    <span class="badge badge-warning">{% translate 'Error' %}</span>
+                                                    {{ form.password1.errors }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class=" w-100 mb-3">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-check-square"></i>
+                                                </span>
+                                                </div>
+                                                <input aria-label="{% translate 'Confirm password' %}" type="password"
+                                                       name="password2" required
+                                                       class="form-control {% if form.password2.errors %} is-invalid  {% endif %}"
+                                                       id="pass2" placeholder="{% translate 'Confirm password' %}">
+                                            </div>
+                                            {% if form.password2.errors %}
+                                                <div class="alert alert-outline-warning rounded-2xl  my-3">
+                                                    <span class="badge badge-warning">{% translate 'Error' %}</span>
+                                                    {{ form.password2.errors }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="mt-4">
+                                            <small>
+                                                <a href="{% url 'login' %}">
+                                                    {% translate 'Already have an account?' %}
+                                                </a>
+                                            </small>
+                                        </div>
+                                        <div class="mt-4">
+                                            <button type="submit" class="btn btn-block btn-soft-primary rounded-xl">
+                                                {% translate 'Sign up' %}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'app/dashboard/base/base.html' %}
+{% load static i18n %}
+
+{% block title %}{{ block.super }}:{% translate 'Announcements' %}{% endblock %}
+
+{% block content %}
+    {% url 'app:create_announcement' as add_link %}
+    {% include 'app/includes/utilities/list_header.html' with add_url=add_link %}
+    {% if announcement_list %}
+        {% for announcement in announcement_list %}
+            {% include 'app/includes/components/announcement.html' %}
+        {% endfor %}
+    {% else %}
+        <div class="border p-3 rounded-2xl text-center">
+            <i class="bi bi-card-text d-block" style="font-size: 5rem"></i>
+            {% translate 'No announcement' %}
+        </div>
+    {% endif %}
+{% endblock %}

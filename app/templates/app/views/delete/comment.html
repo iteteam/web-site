@@ -1,0 +1,26 @@
+{% extends 'app/base/main.html' %}
+{% load i18n static %}
+
+{% block title %}{% translate 'Comment delete confirmation' %}{% endblock %}
+
+{% block content %}
+    <div class="border p-3 rounded-2xl mb-3">
+        <h3 class="heading lead">
+            {% translate 'Comment delete confirmation' %}
+        </h3>
+        <p>
+            {% translate 'Are you sure you want to delete this comment?' %}
+        </p>
+        <div class="alert alert-outline-primary rounded-2xl mb-0">
+            <div class="alert-heading">
+                {% translate 'Note:' %}
+            </div>
+            {% translate 'All replies related with this comment will be deleted if you delete this comment.' %}
+        </div>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {% url 'app:post_detail' comment.post_id as url %}
+        {% include 'app/includes/utilities/submit.html' with cancel_url=url %}
+    </form>
+{% endblock %}

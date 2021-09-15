@@ -1,0 +1,42 @@
+{% extends 'app/dashboard/base/base.html' %}
+{% load static i18n %}
+
+{% block title %}{{ block.super }}: {% translate 'Edit Question Answer' %}{% endblock %}
+
+{% block content %}
+    <h3>
+        {% translate 'Edit Answer' %}
+    </h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="mb-2">
+                {% translate 'Rightness:' %}
+            </div>
+            <div class="custom-control custom-radio mb-2">
+                <input name="right" type="radio" value="True" id="true" class="custom-control-input"
+                       {% if quizanswer.right == True %}checked{% endif %}>
+                <label for="true" class="custom-control-label">
+                    {% translate 'Right answer.' %}
+                </label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input name="right" type="radio" value="False" id="false" class="custom-control-input"
+                       {% if quizanswer.right == False %}checked{% endif %}>
+                <label for="false" class="custom-control-label">
+                    {% translate 'Wrong answer.' %}
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="content">
+                {% translate 'Content:' %}
+            </label>
+            <textarea name="content" rows="10" class="form-control rounded-2xl" id="content"
+            >{{ quizanswer.content }}</textarea>
+        </div>
+        {% url 'app:delete_quiz_answer' quizanswer.id  as url %}
+        {% url 'app:edit_quiz_answer' quizanswer.id as uri %}
+        {% include 'app/includes/utilities/save_submit.html' with delete_url=url cancel_url=uri %}
+    </form>
+{% endblock %}

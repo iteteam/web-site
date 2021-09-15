@@ -1,0 +1,43 @@
+{% load static i18n %}
+<div class="card mb-3 rounded-2xl">
+    <div class="card-header p-3">
+        <div class="row align-items-center">
+            <div class="col d-flex align-items-center">
+                <span class="avatar avatar-sm bg-gradient-indigo">
+                    {{ question.user.first_name|slice:'0:1' }}{{ question.user.last_name|slice:'0:1' }}
+                </span>
+                <span class="avatar-content">
+                    <a class="text-dark font-weight-bold" href="{% url 'app:user_detail' question.user.id %}">
+                        {{ question.user.get_full_name }}
+                    </a>
+                </span>
+            </div>
+            <div class="col text-right text-xs-right">
+                <a href="{% url 'app:generic_question_detail' question.id %}">
+                    <i class="bi bi-chat-left-text"></i>
+                </a>
+                {{ question.answer_set.all.count }}
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-3">
+        <h6 class="heading heading-sm strong-400 text-muted mb-4">
+            {{ question.created_at|timesince }} {% translate 'ago' %}
+        </h6>
+        <p class="card-text">
+            {{ question.content|linebreaks }}
+        </p>
+    </div>
+    {% if question.user == user %}
+        <div class="card-footer p-3">
+            <div class="w-100 d-flex align-items-center justify-content-around">
+                <a href="{% url 'app:delete_generic_question' question.id %}" class="btn btn-sm rounded-2xl btn-soft-danger">
+                    <i class="bi bi-trash"></i>
+                </a>
+                <a href="{% url 'app:edit_generic_question' question.id %}" class="btn btn-sm rounded-2xl btn-soft-success">
+                    <i class="bi bi-pen"></i>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+</div>

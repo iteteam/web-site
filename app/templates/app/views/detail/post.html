@@ -1,0 +1,115 @@
+{% extends 'app/views/detail/detail_view.html' %}
+{% load static i18n %}
+{% block title %}{% translate 'Post details' %}{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            {# Post #}
+            {% include 'app/includes/components/post.html' %}
+            {# End post #}
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="border rounded-2xl p-3">
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <h3 class="m-0 p-0 text-muted text-center text-lg-left">
+                            {% translate 'Comments' %}
+                        </h3>
+                    </div>
+                    <div class="col-12 col-lg-6 pt-3 pt-lg-0">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <button type="button" class="btn btn-sm rounded-2xl btn-soft-warning mr-lg-3"
+                                    data-bs-toggle="modal" data-bs-target="#comment_adding_modal">
+                                <i class="bi bi-plus"></i>
+                                {% translate 'Comment' %}
+                            </button>
+                            <button type="button" class="btn btn-sm rounded-2xl btn-soft-danger"
+                                    data-bs-toggle="modal" data-bs-target="#comment_listing_modal">
+                                <i class="bi bi-ui-checks-grid"></i>
+                                {% translate 'Comments' %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if  post.comment_set.all %}
+                <div class="my-3">
+                    {% include 'app/includes/components/post_comment.html' with comment=post.comment_set.all.last user=user %}
+                </div>
+            {% else %}
+                <div class="my-3 border rounded-2xl p-3 text-center">
+                    <i class="bi bi-chat-left-text" style="font-size: 5rem"></i>
+                    <h5 class="heading h5">{% translate 'No comments yet.' %}</h5>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {# Comment Adding Modal #}
+    <div class="modal fade" id="comment_adding_modal" tabindex="-1"
+         aria-labelledby="comment_adding_modal_title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content rounded-2xl">
+                <div class="modal-header p-3">
+                    <h5 class="modal-title" id="comment_adding_modal_title">{% translate 'Add Comment' %}</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-square-fill text-danger"></i>
+                    </button>
+                </div>
+                <div class="modal-body p-3">
+                    <form method="post" action="{% url 'app:create_comment' post.id %}" id="add_comment">
+                        {% csrf_token %}
+                        <textarea name="content" rows="10" class="form-control rounded-2xl" required
+                                  aria-label="{% translate 'Content' %}" placeholder="{% translate 'Comment content' %}"
+                        ></textarea>
+                    </form>
+                </div>
+                <div class="modal-footer p-3">
+                    <button type="button" class="btn btn-sm rounded-2xl btn-soft-danger" data-bs-dismiss="modal">
+                        <i class="bi bi-x"></i> {% translate 'Cancel' %}
+                    </button>
+                    <button type="submit" form="add_comment" class="btn btn-sm rounded-2xl btn-soft-success">
+                        <i class="bi bi-plus"></i> {% translate 'Add' %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# End modal #}
+    {# Comment Listing Modal #}
+    <div class="modal fade" id="comment_listing_modal" tabindex="-1"
+         aria-labelledby="comment_listing_modal_title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content rounded-2xl">
+                <div class="modal-header p-3">
+                    <h5 class="modal-title" id="comment_listing_modal_title">
+                        {% translate 'Comment List' %}
+                    </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="bi bi-x-square-fill text-danger"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-3 pt-3 pb-0">
+                    {% if post.comment_set.all %}
+                        {% for comment in post.comment_set.all %}
+                            {% include 'app/includes/components/post_comment.html' %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="border rounded-2xl p-3 text-center">
+                            <i class="bi bi-ui-radios-grid" style="font-size: 5rem"></i>
+                            <p>
+                                {% translate 'No comments.' %}
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="modal-footer p-3">
+                    <button type="button" class="btn btn-sm rounded-2xl btn-soft-danger" data-bs-dismiss="modal">
+                        <i class="bi bi-x"></i>
+                        {% translate 'Close' %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# End modal #}
+{% endblock %}

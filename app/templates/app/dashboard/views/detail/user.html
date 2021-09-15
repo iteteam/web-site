@@ -1,0 +1,79 @@
+{% extends 'app/dashboard/base/base.html' %}
+{% load static i18n %}
+
+{% block title %}{{ block.super }}: {% translate 'Details' %}{% endblock %}
+
+{% block content %}
+    <div class="mt-3 mt-lg-0">
+        <div class="d-flex border p-3 rounded-2xl text-center text-lg-left mb-3">
+            <h3 class="d-flex mb-0 w-100 align-items-center">
+                {% if user != request.user %}
+                    {{ user.get_short_name }}{% translate "'s account." %}
+                {% else %}
+                    {% translate 'Welcome' %}
+                    {{ user.get_short_name }}
+                {% endif %}
+            </h3>
+            {% if user == request.user %}
+                <div class="d-flex align-items-center justify-content-end w-25">
+                    <a href="{% url 'app:dashboard_account_edit' user.id %}" class="btn btn-soft-warning rounded-2xl">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6 pr-lg-0">
+                <div class="card rounded-2xl">
+                    <div class="card-header text-center p-3">
+                        <h3 class="mb-0 text-muted">
+                            {{ user.get_full_name }}
+                        </h3>
+                    </div>
+                    <div class="card-body p-3">
+                        {% if user.image %}
+                            <img src="{% url 'app:return_file' 'profile_img' user.id %}" alt="{{ user }}"
+                                 class="card-img">
+                        {% else %}
+                            <div class="d-flex align-items-center justify-content-center w-100 h-100 p-lg bg-gradient-primary rounded-2xl">
+                                <div class="avatar avatar-lg bg-gradient-warning">
+                                    <span class="h2 mb-0 text-white">
+                                        {{ user.first_name|slice:'0:1' }}{{ user.last_name|slice:'0:1' }}
+                                    </span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer p-3 text-center">
+                        {{ user.about }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 pt-3 pt-lg-0">
+                <div class="card rounded-2xl">
+                    <div class="card-header p-3">
+                        <h3 class="mb-0 text-center">
+                            {% translate 'Data' %}
+                        </h3>
+                    </div>
+                    <div class="list-group">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                {% translate 'Posts: ' %}
+                                {{ user.post_list.all.count }}
+                            </li>
+                            <li class="list-group-item">
+                                {% translate 'Questions: ' %}
+                                {{ user.genericquestion_set.all.count }}
+                            </li>
+                            <li class="list-group-item">
+                                {% translate 'Courses: ' %}
+                                {{ user.course_set.all.count }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

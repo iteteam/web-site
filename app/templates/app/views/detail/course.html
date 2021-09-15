@@ -1,0 +1,50 @@
+{% extends 'app/views/detail/detail_view.html' %}
+{% load i18n static %}
+
+{% block title %}{{ course.title }} {% translate 'detail' %}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <div class="card rounded-2xl text-white border-0 overflow-hidden">
+                <img class="card-img" src="{% url 'app:return_file' 'course_img' course.id %}" alt="{{ course.title}}">
+                <span class="mask bg-gradient-primary alpha-7"></span>
+                <div class="card-img-overlay d-flex align-items-center">
+                    <div class="col-lg-8">
+                        <h4 class="heading h3 text-white">
+                            {{ course.title }}
+                        </h4>
+                        <div class="card-text">
+                            {{ course.about }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 pt-3 pt-lg-0">
+            <div class="border p-3 rounded-2xl mb-3">
+                <h3 class="heading lead">
+                    {% translate 'Description:' %}
+                </h3>
+                {{ course.description|linebreaks }}
+            </div>
+            {% if course not in user.course_set.all %}
+                <form action="{% url 'app:enroll' course.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="p-3 border rounded-2xl d-flex align-items-center justify-content-center justify-content-lg-end">
+                        <button type="submit" class="btn btn-sm btn-soft-success rounded-2xl w-sm-100">
+                            {% translate 'Enroll' %}
+                        </button>
+                    </div>
+                </form>
+            {% else %}
+                <div class="p-3 border rounded-2xl d-flex align-items-center justify-content-center justify-content-lg-end">
+                    <button type="button" class="btn btn-sm btn-soft-success rounded-2xl disabled w-sm-100"
+                            aria-disabled="true">
+                        {% translate 'Enrolled' %}
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

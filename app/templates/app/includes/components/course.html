@@ -1,0 +1,23 @@
+{% load static i18n %}
+<div class="card mb-3 rounded-2xl">
+    <div class="container-fluid">
+        <div class="row mb-0">
+            <div class="col-12 col-lg-3 p-0">
+                <img class="card-img rounded-2xl" src="{% url 'app:return_file' 'course_img' course.id %}"
+                     alt="{{ course.title }}">
+            </div>
+            <div class="col-12 col-lg-9">
+                <div class="card-body py-3">
+                    <h4 class="card-title">{{ course.title }}</h4>
+                    <p class="card-text">
+                        {{ course.about }}
+                    </p>
+                    <a href="{% url 'app:course_detail' course.id %}"
+                       class="btn btn-sm rounded-2xl btn-soft-success w-100">
+                        {% translate 'Take a look' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

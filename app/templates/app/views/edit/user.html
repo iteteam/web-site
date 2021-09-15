@@ -1,0 +1,109 @@
+{% extends 'app/base/main.html' %}
+{% load i18n %}
+{% block title %}{% translate 'Profile' %}{% endblock %}
+{% block content %}
+    <div class="border p-3 rounded-2xl mb-3">
+        <h1 class="heading lead">
+            {% translate 'Hello,' %} {{ user.get_short_name }}
+        </h1>
+        {% translate 'You can edit you personal info here.' %}
+    </div>
+    <div class="alert alert-outline-info rounded-2xl">
+        <div class="alert-heading">
+            {% translate 'Note:' %}
+        </div>
+        {% translate 'If you want to change your password, click' %}
+        <a href="{% url 'app:change_password' %}">
+            {% translate 'here' %}
+        </a>
+    </div>
+    {% if form.errors %}
+        <div class="alert alert-outline-warning rounded-2xl mb-3">
+            <span class="badge badge-warning">{% translate 'Error' %}</span>
+            {{ form.errors }}
+        </div>
+    {% endif %}
+    <form method="post" action="{% url 'app:edit_user' user.id %}" id="user" enctype="multipart/form-data"
+    class="border p-3 rounded-2xl">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <fieldset>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">{% translate 'User name:' %}</label>
+                        <input type="text" name="username" id="username" required
+                               class="form-control rounded-2xl {% if form.username.errors %}is-invalid{% endif %}"
+                               value="{{ user }}" placeholder="{% translate 'User name' %}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">{% translate 'Email address:' %}</label>
+                        <input type="email" name="email" id="email" required
+                               class="form-control rounded-2xl {% if form.email.errors %}is-invalid{% endif %}"
+                               placeholder="{% translate 'Email' %}" value="{{ user.email }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="first">{% translate 'First name:' %}</label>
+                        <input type="text" name="first_name" id="first" required
+                               class="form-control rounded-2xl {% if form.first_name.errors %}is-invalid{% endif %}"
+                               placeholder="{% translate 'First name' %}" value="{{ user.first_name }}">
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-12 col-lg-6 pt-3 pt-lg-0">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="last">{% translate 'Last name:' %}</label>
+                        <input type="text" name="last_name" id="last" required
+                               class="form-control rounded-2xl {% if form.last_name.errors %}is-invalid{% endif %}"
+                               placeholder="{% translate 'Last name' %}"
+                               value="{{ user.last_name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="about">{% translate 'About yourself:' %}</label>
+                        <input type="text" name="about" maxlength="150" required
+                               class="form-control rounded-2xl {% if form.about.errors %}is-invalid{% endif %}"
+                               id="about" value="{{ user.about }}" placeholder="{% translate 'About' %}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="theme">{% translate 'Theme:' %}</label>
+                        <select name="theme" id="theme" required
+                                class="form-control rounded-2xl {% if form.theme.errors %}is-invalid{% endif %}">
+                            <option value="default" {% if user.theme == 'default' %}selected{% endif %}>
+                                {% translate 'Default' %}
+                            </option>
+                            <option value="light" {% if user.theme == 'light' %}selected{% endif %}>
+                                {% translate 'Light' %}
+                            </option>
+                            <option value="dark" {% if user.theme == 'dark' %}selected{% endif %}>
+                                {% translate 'Dark' %}
+                            </option>
+                            <option value="auto" {% if user.theme == 'auto' %}selected{% endif %}>
+                                {% translate 'Auto' %}
+                            </option>
+                            <option value="sunrise" {% if user.theme == 'sunrise' %}selected{% endif %}>
+                                {% translate 'Sun rise' %}
+                            </option>
+                            <option value="sunset" {% if user.theme == 'sunset' %}selected{% endif %}>
+                                {% translate 'Sun set' %}
+                            </option>
+                            <option value="green" {% if user.theme == 'green' %}selected{% endif %}>
+                                {% translate 'Green plant' %}
+                            </option>
+                            <option value="red" {% if user.theme == 'red' %}selected{% endif %}>
+                                {% translate 'Red rose' %}
+                            </option>
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="image">{% translate 'Profile image' %}</label>
+            <input type="file" name="image" id="image" class="form-control rounded-2xl"
+                   value="{{ user.image }}">
+            <small>{% translate 'Current image: ' %}{{ user.image }}</small>
+        </div>
+        {% include 'app/includes/utilities/save_submit.html' %}
+    </form>
+{% endblock %}

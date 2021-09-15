@@ -1,0 +1,88 @@
+{% load static i18n %}
+
+<div class="border rounded-2xl" style="overflow-x: auto">
+    {# Table #}
+    <table class="table table-hover table-cards mb-0 align-items-center text-center">
+        {# Table head #}
+        <thead>
+        <tr class="border-bottom">
+            <th scope="col">
+                {% translate 'User Name' %}
+            </th>
+            <th scope="col">
+                {% translate 'Name' %}
+            </th>
+            <th scope="col">
+                {% translate 'Email' %}
+            </th>
+            <th scope="col">
+                {% translate 'Last_Login' %}
+            </th>
+            <th scope="col">
+                {% translate 'Date_Joined' %}
+            </th>
+            <th scope="col">
+                {% translate 'Active' %}
+            </th>
+            <th scope="col">
+                {% translate 'Staff' %}
+            </th>
+            <th scope="col">
+                {% translate 'Superuser' %}
+            </th>
+        </tr>
+        </thead>
+        {# End head #}
+        {# Table body #}
+        <tbody>
+        {% for user in user_list %}
+            {# Row #}
+            <tr scope="row" class="border-bottom">
+                <td>
+                    <div class="media align-items-center">
+                        {% if user.image %}
+                            <img src="{% url 'app:return_file' 'profile_img' user.id %}" class="avatar avatar-lg mr-3"
+                                 alt="{{ user.username }}">
+                        {% else %}
+                            <div class="avatar avatar-lg mr-3 bg-gradient-primary">
+                                {{ user.first_name|slice:'0:1' }}{{ user.last_name|slice:'0:1' }}
+                            </div>
+                        {% endif %}
+                        <div class="media-body">
+                            <h6 class="h5 font-weight-normal mb-0">
+                                <a class="" href="{% url 'app:dashboard_account' user.id %}">
+                                    {{ user.username }}
+                                </a>
+                            </h6>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    {{ user.first_name }} {{ user.last_name }}
+                </td>
+                <td>
+                    {{ user.email }}
+                </td>
+                <td>
+                    {{ user.last_login|timesince }}
+                </td>
+                <td>
+                    {{ user.date_joined|timesince }}
+                </td>
+                <td>
+                    <i class="bi {% if user.is_active %}bi-check-circle-fill text-success{% else %}bi-x-circle-fill text-danger{% endif %}"></i>
+                </td>
+                <td>
+                    <i class="bi {% if user.is_staff %}bi-check-circle-fill text-success{% else %}bi-x-circle-fill text-danger{% endif %}"></i>
+                </td>
+                <td>
+                    <i class="bi {% if user.is_superuser %}bi-check-circle-fill text-success{% else %}bi-x-circle-fill text-danger{% endif %}"></i>
+                </td>
+            </tr>
+            {# End row #}
+        {% endfor %}
+        </tbody>
+        {# End body #}
+    </table>
+    {# End table #}
+</div>

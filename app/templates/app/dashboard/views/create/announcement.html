@@ -1,0 +1,29 @@
+{% extends 'app/dashboard/base/base.html' %}
+{% load i18n static %}
+{% block title %}{{ block.super }}: {% translate 'Add Announcement' %}{% endblock %}
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% if form.errors %}
+            <div class="alert alert-outline-warning rounded-2xl ">
+                <div class="alert-content">
+                    {{ form.errors }}
+                </div>
+            </div>
+        {% endif %}
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="ann">
+                {% translate 'Content:' %}
+            </label>
+            <textarea name="content" aria-label="Content" rows="10" class="form-control rounded-2xl" id="ann"
+                      placeholder="{% translate 'Announcement content' %}" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="label">{% translate 'Image:' %}</label>
+            <input type="file" accept="image/*" name="image" id="image" class="form-control rounded-2xl">
+        </div>
+        {% url 'app:dashboard_announcement_list' as url %}
+        {% include 'app/includes/utilities/submit.html' with cancel_url=url %}
+    </form>
+{% endblock %}

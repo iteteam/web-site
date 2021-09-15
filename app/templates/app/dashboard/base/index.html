@@ -1,0 +1,77 @@
+{% extends 'app/dashboard/base/base.html' %}
+{% load static i18n %}
+
+{% block title %}{{ block.super }}: {% translate 'Home' %}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12 col-lg-3">
+            <div class="card rounded-2xl mb-3">
+                <img src="{% static 'app/img/dashboard/complience-and-security-icon-purple.svg' %}" alt=""
+                     class="card-img">
+                <div class="card-body p-3">
+                    <h3 class="card-title text-indigo text-center">
+                        {% translate 'Security' %}
+                    </h3>
+                    <div class="card-text">
+                        {% translate 'Built with security in front and center.' %}
+                    </div>
+                </div>
+            </div>
+            <div class="card rounded-2xl">
+                <img src="{% static 'app/img/dashboard/icon_locked.svg' %}" alt=""
+                     class="card-img">
+                <div class="card-body p-3">
+                    <h3 class="card-title text-indigo text-center">
+                        {% translate 'Security' %}
+                    </h3>
+                    <div class="card-text">
+                        {% translate 'Built with security in front and center.' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-3">
+            <div class="card rounded-2xl">
+                <img src="{% static 'app/img/dashboard/shield-checkmark.svg' %}" alt=""
+                     class="card-img">
+                <div class="card-body p-3">
+                    <h3 class="card-title text-indigo text-center">
+                        {% translate 'Security' %}
+                    </h3>
+                    <div class="card-text">
+                        {% translate 'Built with security in front and center.' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-3">
+            <div class="card rounded-2xl mb-3">
+                <img src="{% static 'app/img/dashboard/icon_continuous-delivery-color.svg' %}" alt=""
+                     class="card-img">
+                <div class="card-body p-3">
+                    <h3 class="card-title text-indigo text-center">
+                        {% translate 'Security' %}
+                    </h3>
+                    <div class="card-text">
+                        {% translate 'Built with security in front and center.' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-3">
+            <div class="card rounded-2xl">
+                <img src="{% static 'app/img/dashboard/homepage-illustration-m.svg' %}" alt=""
+                     class="card-img">
+                <div class="card-body p-3">
+                    <h3 class="card-title text-indigo text-center">
+                        {% translate 'All you need!' %}
+                    </h3>
+                    <div class="card-text">
+                        {% translate 'Built with security in front and center.' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
